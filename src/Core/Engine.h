@@ -3,7 +3,6 @@
 
 #include"SDL.h"
 #include"SDL_image.h"
-#include"Obstacle.h"
 #include<vector>
 #include"Background.h"
 
@@ -27,8 +26,6 @@ class Engine
 
         inline bool IsRunning(){return m_IsRunning;}
         inline SDL_Renderer* GetRenderer(){return m_Renderer;}
-        inline std::vector<Obstacle*>& GetObstacles() { return m_Obstacles; }
-
 
     private:
         Engine(){}
@@ -39,8 +36,7 @@ class Engine
         static Engine* s_Instance;
 
         Background* m_Background;
-        std::vector<Obstacle*> m_Obstacles;
-        float m_SpawnTimer = 0.0f;
+
 };
 
 #endif // ENGINE_H

@@ -48,6 +48,11 @@ class RigidBody
             m_Postition = m_Velocity * dt;
         }
 
+        void Jump(float force) {
+            if (m_Velocity.Y == 0) {
+                ApplyForceY(-force);
+            }
+        }
     private:
         float m_Mass;
         float m_Gravity;

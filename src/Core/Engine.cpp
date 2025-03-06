@@ -1,14 +1,15 @@
 #include "Engine.h"
 #include "TextureManager.h"
-
+#include "AppleThrower.h"
 #include "Warrior.h"
 #include "Input.h"
 #include "SDL.h"
 #include "Timer.h"
+#include "Background.h"
 
 Engine* Engine::s_Instance = nullptr;
 Warrior* player = nullptr;
-
+AppleThrower* appleThrower = nullptr;
 
 bool Engine::Init()
 {
@@ -29,17 +30,17 @@ bool Engine::Init()
         return false;
     }
 
-    TextureManager::GetInstance()->Load("player", "assets/Idle.png");
-    TextureManager::GetInstance()->Load("player_run", "assets/Walk.png");
-    TextureManager::GetInstance()->Load("player_jump", "assets/Jump.png");
-    TextureManager::GetInstance()->Load("bg", "assets/bg.png");
-    m_Background = new Background("bg", 2);
-    TextureManager::GetInstance()->Load("obstacle", "assets/obstacle.png");
+    TextureManager::GetInstance()->Load("player", "assets/IDLE.png");
+    TextureManager::GetInstance()->Load("player_run", "assets/RUN.png");
+    TextureManager::GetInstance()->Load("player_attack1", "assets/ATTACK 1.png");
+    TextureManager::GetInstance()->Load("player_attack2", "assets/ATTACK 2.png");
+    TextureManager::GetInstance()->Load("player_attack3", "assets/ATTACK 3.png");
+    TextureManager::GetInstance()->Load("bg", "assets/background.png");
+    TextureManager::GetInstance()->Load("apple", "assets/apple.png");
 
-    m_Obstacles.push_back(new Obstacle("obstacle", 800, 500, 50, 50, 3));  // X=800, Y=500, Width=50, Height=50, Speed=3
-    m_Obstacles.push_back(new Obstacle("obstacle", 1200, 500, 50, 50, 3)); // Chướng ngại vật thứ 2
-
-    player = new Warrior(new Properties("player", 100, 400, 128, 128));
+    m_Background = new Background(new Properties("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), 3);
+    player = new Warrior(new Properties("player_run", 100, 400, 96, 84));
+    appleThrower = new AppleThrower();
 
     return m_IsRunning = true;
 }
@@ -47,15 +48,9 @@ bool Engine::Init()
 void Engine::Render()
 {
     SDL_RenderClear(m_Renderer);
-
+    m_Background->Draw();
     player->Draw();
-
-
-    m_Background->Render();
-
-    for (auto& obstacle : m_Obstacles) {
-        obstacle->Render();
-    }
+    appleThrower->Draw();
     SDL_RenderPresent(m_Renderer);
 }
 
@@ -63,26 +58,9 @@ void Engine::Update()
 {
     float dt = Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
-    m_Background->Update();
-
-    // Cập nhật danh sách obstacle
-    for (auto it = m_Obstacles.begin(); it != m_Obstacles.end();) {
-        (*it)->Update();
-        if ((*it)->IsOffScreen()) {
-            delete *it;
-            it = m_Obstacles.erase(it);
-        } else {
-            ++it;
-        }
-    }
-
-    // Sinh obstacle mỗi 2 giây
-    m_SpawnTimer += Timer::GetInstance()->GetDeltaTime();
-    if (m_SpawnTimer >= 2.0f) {
-        int yPosition = 400;  // Vị trí của chướng ngại vật trên mặt đất
-        m_Obstacles.push_back(new Obstacle("obstacle_texture", 800, yPosition, 5));
-        m_SpawnTimer = 0.0f;
-    }
+    m_Background->Update(dt);
+    SDL_Rect swordRect = { player->GetX(), player->GetY(), 50, 50 }; //Lay vi tri kiem cua nguoi choi
+    appleThrower->Update(dt, player->GetSwordHitbox());
 }
 
 void Engine::Events()
@@ -93,11 +71,7 @@ void Engine::Events()
 bool Engine::Clean()
 {
     delete m_Background;
-
-    for (auto& obstacle : m_Obstacles) {
-        delete obstacle;
-    }
-    m_Obstacles.clear();
+    delete appleThrower;
     TextureManager::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);

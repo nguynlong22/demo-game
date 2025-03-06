@@ -3,7 +3,7 @@
 #include "SDL.h"
 #include "Input.h"
 #include "Engine.h"
-#include "Obstacle.h"
+
 
 Warrior::Warrior(Properties* props): Character(props)
 {
@@ -17,45 +17,35 @@ void Warrior::Draw()
     m_Animation->Draw(m_Transform->X, m_Transform->Y, m_Width, m_Height);
 }
 
-void Warrior::Update(float dt)
-{
-    m_Animation->SetProps("player", 1, 6, 80);
-    m_RigidBody->UnsetForce();
+void Warrior::Update(float dt) {
+    m_Animation->SetProps("player_run", 1, 8, 60);
 
-    // Di chuyển trái
-    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_A)){
-        m_RigidBody->ApplyForceX(5 * BACKWARD);
-        m_Animation->SetProps("player_run", 1, 8, 80, SDL_FLIP_HORIZONTAL);
+    if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)) {
+        m_Animation->SetProps("player_attack1", 1, 6, 45);
     }
 
-    // Di chuyển phải
-    if(Input::GetInstance()->GetKeyDown(SDL_SCANCODE_D)){
-        m_RigidBody->ApplyForceX(5 * FORWARD);
-        m_Animation->SetProps("player_run", 1, 8, 80);
+    if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_S)) {
+        m_Animation->SetProps("player_attack2", 1, 5, 45);
     }
 
-    for (auto& obstacle : Engine::GetInstance()->GetObstacles()) {
-        if (SDL_HasIntersection(&m_Collider, &obstacle->GetCollider())) {
-            std::cout << "Collision detected!" << std::endl;
-            // Xử lý game over hoặc trừ máu
-        }
+    if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_W)) {
+        m_Animation->SetProps("player_attack3", 1, 6, 45);
     }
 
     m_RigidBody->Update(dt);
 
-    // Cập nhật vị trí nhân vật
-    m_Transform->TranslateX(m_RigidBody->Postition().X);
-    //m_Transform->TranslateY(m_RigidBody->Postition().Y);
-
     m_Animation->Update();
+}
+
+SDL_Rect Warrior::GetSwordHitbox() {
+    int swordWidth = 50;  // Chiều rộng kiếm
+    int swordHeight = 20; // Chiều cao kiếm
+    int offsetX = GetWidth();
+
+    return { GetX() + offsetX, GetY() + 20, swordWidth, swordHeight };
 }
 
 void Warrior::Clean()
 {
     TextureManager::GetInstance()->Clean();
 }
-
-
-
-
-

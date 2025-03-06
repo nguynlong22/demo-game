@@ -382,20 +382,21 @@
 	"begin_code.h"
 	"close_code.h"
 
-1740409384 d:\demo\demo game\src\core\engine.h
+1741192143 d:\demo\demo game\src\core\engine.h
 	"SDL.h"
 	"SDL_image.h"
-	"Obstacle.h"
 	<vector>
 	"Background.h"
 
-1740408835 source:d:\demo\demo game\src\core\engine.cpp
+1741231851 source:d:\demo\demo game\src\core\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
+	"AppleThrower.h"
 	"Warrior.h"
 	"Input.h"
 	"SDL.h"
 	"Timer.h"
+	"Background.h"
 
 1738957627 d:\sdl2_image-2.8.5\x86_64-w64-mingw32\include\sdl2\sdl_image.h
 	"SDL.h"
@@ -403,7 +404,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1740408459 source:d:\demo\demo game\src\graphics\texturemanager.cpp
+1741232180 source:d:\demo\demo game\src\graphics\texturemanager.cpp
 	"TextureManager.h"
 	"Engine.h"
 
@@ -418,13 +419,14 @@
 1739929967 d:\demo\demo game\src\physics\transform.h
 	"Vector2D.h"
 
-1740369203 source:d:\demo\demo game\src\characters\warrior.cpp
+1741231326 source:d:\demo\demo game\src\characters\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
 	"Input.h"
+	"Engine.h"
 
-1740193857 d:\demo\demo game\src\characters\warrior.h
+1741093974 d:\demo\demo game\src\characters\warrior.h
 	"Character.h"
 	"Animation.h"
 	"RigidBody.h"
@@ -433,7 +435,7 @@
 	"GameObject.h"
 	<string>
 
-1739927322 d:\demo\demo game\src\object\gameobject.h
+1740457696 d:\demo\demo game\src\object\gameobject.h
 	"IObject.h"
 	"Transform.h"
 	<string>
@@ -450,7 +452,7 @@
 	"SDL.h"
 	"TextureManager.h"
 
-1740043294 d:\demo\demo game\src\physics\rigidbody.h
+1741150071 d:\demo\demo game\src\physics\rigidbody.h
 	"Vector2D.h"
 
 1739931279 d:\demo\demo game\src\inputs\input.h
@@ -482,12 +484,48 @@
 	"TextureManager.h"
 	"Engine.h"
 
-1740408001 d:\demo\demo game\src\background\background.h
-	"SDL.h"
+1740456785 d:\demo\demo game\src\background\background.h
+	"GameObject.h"
 	"TextureManager.h"
 
-1740408835 d:\demo\demo game\src\obstacle\obstacle.h
-	"SDL.h"
+1740459244 d:\demo\demo game\src\obstacle\obstacle.h
+	"GameObject.h"
 	"TextureManager.h"
+
+1740457806 d:\demo\demo game\src\obstacle\collision.h
+	"GameObject.h"
+	<SDL.h>
+
+1741151528 d:\demo\demo game\src\object\apple.h
+	"GameObject.h"
 	"Vector2D.h"
+	<vector>
+	<cstdlib>
+	<ctime>
+	"Collision.h"
+
+1741191982 d:\demo\demo game\src\physics\collision.h
+	"SDL.h"
+
+1741231963 d:\demo\demo game\src\apple\applethrower.h
+	"Apple.h"
+	<vector>
+
+1741231326 d:\demo\demo game\src\apple\apple.h
+	"GameObject.h"
+	"Vector2D.h"
+	"TextureManager.h"
+
+1741233367 source:d:\demo\demo game\src\apple\apple.cpp
+	"Apple.h"
+	"Engine.h"
+	"TextureManager.h"
+	"RigidBody.h"
+
+1741232908 source:d:\demo\demo game\src\apple\applethrower.cpp
+	"AppleThrower.h"
+	"Collision.h"
+	"Engine.h"
+	<cstdlib>
+	<ctime>
 

@@ -29,6 +29,11 @@ public:
     virtual void Clean() = 0;
     virtual void Update(float dt) = 0;
 
+    float GetX() { return m_Transform->X; }
+    float GetY() { return m_Transform->Y; }
+    int GetWidth() { return m_Width; }
+    int GetHeight() { return m_Height; }
+
 protected:
     Transform* m_Transform;
     int m_Width, m_Height;

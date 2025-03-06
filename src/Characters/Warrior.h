@@ -14,8 +14,8 @@ class Warrior: public Character
         virtual void Update(float dt);
         virtual void Clean();
 
+        SDL_Rect GetSwordHitbox();
     private:
-        bool m_IsJumping = false;
         RigidBody* m_RigidBody;
         Animation* m_Animation;
 };

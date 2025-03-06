@@ -22,6 +22,9 @@
 					<Add directory="src/Inputs" />
 					<Add directory="src/Map" />
 					<Add directory="src/Timer" />
+					<Add directory="src/Background" />
+					<Add directory="src/Obstacle" />
+					<Add directory="src/Apple" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -40,6 +43,9 @@
 					<Add directory="src/Inputs" />
 					<Add directory="src/Map" />
 					<Add directory="src/Timer" />
+					<Add directory="src/Background" />
+					<Add directory="src/Obstacle" />
+					<Add directory="src/Apple" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -61,6 +67,13 @@
 		<Unit filename="Demo.cpp" />
 		<Unit filename="src/Animation/Animation.cpp" />
 		<Unit filename="src/Animation/Animation.h" />
+		<Unit filename="src/Apple/Apple.cpp" />
+		<Unit filename="src/Apple/Apple.h" />
+		<Unit filename="src/Apple/AppleThrower.cpp" />
+		<Unit filename="src/Apple/AppleThrower.h" />
+		<Unit filename="src/Background/Background.h">
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="src/Characters/Character.h" />
 		<Unit filename="src/Characters/Warrior.cpp" />
 		<Unit filename="src/Characters/Warrior.h" />
@@ -70,12 +83,9 @@
 		<Unit filename="src/Graphics/TextureManager.h" />
 		<Unit filename="src/Inputs/Input.cpp" />
 		<Unit filename="src/Inputs/Input.h" />
-		<Unit filename="src/Map/GameMap.h" />
-		<Unit filename="src/Map/Layer.h" />
-		<Unit filename="src/Map/TileLayer.cpp" />
-		<Unit filename="src/Map/TileLayer.h" />
 		<Unit filename="src/Object/GameObject.h" />
 		<Unit filename="src/Object/IObject.h" />
+		<Unit filename="src/Physics/Collision.h" />
 		<Unit filename="src/Physics/RigidBody.h" />
 		<Unit filename="src/Physics/Transform.h" />
 		<Unit filename="src/Physics/Vector2D.h" />
