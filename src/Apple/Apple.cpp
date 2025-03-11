@@ -27,6 +27,14 @@ SDL_Rect Apple::GetRect() {
 
 void Apple::Draw() {
     TextureManager::GetInstance()->Draw(m_TextureID, m_Transform->X, m_Transform->Y, m_Width, m_Height);
+    SDL_Rect hitbox = GetRect();
+    SDL_Renderer* renderer = Engine::GetInstance()->GetRenderer();
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // RGBA: Đỏ, không trong suốt
+    SDL_RenderDrawRect(renderer, &hitbox);
+
+    // Đặt lại màu về mặc định (tránh ảnh hưởng render khác)
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Màu đen hoặc tùy chỉnh
 }
 void Apple::Clean() {
 }

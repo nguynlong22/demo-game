@@ -71,9 +71,6 @@
 		<Unit filename="src/Apple/Apple.h" />
 		<Unit filename="src/Apple/AppleThrower.cpp" />
 		<Unit filename="src/Apple/AppleThrower.h" />
-		<Unit filename="src/Background/Background.h">
-			<Option target="Release" />
-		</Unit>
 		<Unit filename="src/Characters/Character.h" />
 		<Unit filename="src/Characters/Warrior.cpp" />
 		<Unit filename="src/Characters/Warrior.h" />
@@ -85,6 +82,7 @@
 		<Unit filename="src/Inputs/Input.h" />
 		<Unit filename="src/Object/GameObject.h" />
 		<Unit filename="src/Object/IObject.h" />
+		<Unit filename="src/Physics/Collider.h" />
 		<Unit filename="src/Physics/Collision.h" />
 		<Unit filename="src/Physics/RigidBody.h" />
 		<Unit filename="src/Physics/Transform.h" />

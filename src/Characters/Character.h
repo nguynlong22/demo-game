@@ -16,8 +16,6 @@ class Character: public GameObject
 
     protected:
         string m_Name;
-
-
 };
 
 #endif // CHARACTER_H

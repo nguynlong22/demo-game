@@ -5,10 +5,11 @@
 #include "Input.h"
 #include "SDL.h"
 #include "Timer.h"
-#include "Background.h"
+//#include "Background.h"
 
 Engine* Engine::s_Instance = nullptr;
-Warrior* player = nullptr;
+//Warrior* player = nullptr;
+//Background* m_Background = nullptr;
 AppleThrower* appleThrower = nullptr;
 
 bool Engine::Init()
@@ -38,8 +39,7 @@ bool Engine::Init()
     TextureManager::GetInstance()->Load("bg", "assets/background.png");
     TextureManager::GetInstance()->Load("apple", "assets/apple.png");
 
-    m_Background = new Background(new Properties("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT), 3);
-    player = new Warrior(new Properties("player_run", 100, 400, 96, 84));
+    player = new Warrior(new Properties("player", 100, 420, 128, 128));
     appleThrower = new AppleThrower();
 
     return m_IsRunning = true;
@@ -48,7 +48,7 @@ bool Engine::Init()
 void Engine::Render()
 {
     SDL_RenderClear(m_Renderer);
-    m_Background->Draw();
+    TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     player->Draw();
     appleThrower->Draw();
     SDL_RenderPresent(m_Renderer);
@@ -58,9 +58,8 @@ void Engine::Update()
 {
     float dt = Timer::GetInstance()->GetDeltaTime();
     player->Update(dt);
-    m_Background->Update(dt);
-    SDL_Rect swordRect = { player->GetX(), player->GetY(), 50, 50 }; //Lay vi tri kiem cua nguoi choi
-    appleThrower->Update(dt, player->GetSwordHitbox());
+    //m_Background->Update(dt);
+    appleThrower->Update(dt, player->GetCollider());
 }
 
 void Engine::Events()
@@ -70,8 +69,9 @@ void Engine::Events()
 
 bool Engine::Clean()
 {
-    delete m_Background;
+    //delete m_Background;
     delete appleThrower;
+    delete player;
     TextureManager::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
