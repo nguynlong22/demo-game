@@ -2,11 +2,13 @@
 #include "Collision.h"
 #include "Engine.h"
 #include "Warrior.h"
+#include "Play.h"
 #include <cstdlib>
 #include <ctime>
 
-AppleThrower::AppleThrower() {
+AppleThrower::AppleThrower(Warrior *p) {
     std::srand(std::time(nullptr));
+    player = p;
 }
 
 void AppleThrower::Update(float dt, const SDL_Rect& swordRect) {
@@ -15,9 +17,6 @@ void AppleThrower::Update(float dt, const SDL_Rect& swordRect) {
         ThrowApple();
         timeSinceLastThrow = 0.0f;
     }
-
-    Warrior* player = Engine::GetInstance()->GetPlayer();
-    SDL_Rect warriorCollider = player->GetCollider();
 
     for (auto it = apples.begin(); it != apples.end();) {
         Apple* apple = *it;
@@ -31,7 +30,7 @@ void AppleThrower::Update(float dt, const SDL_Rect& swordRect) {
             continue;
         }*/
 
-        if (!apple->isCut && Collision::CheckCollision(apple->GetRect(), warriorCollider)) {
+        if (!apple->isCut && Collision::CheckCollision(apple->GetRect(), player->GetCollider())) {
             apple->isMissed = true; // Táo chạm Warrior
         }
 

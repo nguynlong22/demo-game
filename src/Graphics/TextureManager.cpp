@@ -41,6 +41,30 @@ void TextureManager::DrawFrame(string id, int x, int y, int width, int height,in
     SDL_RenderCopyEx(Engine::GetInstance()->GetRenderer(), m_TextureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 
+void TextureManager::LoadFont(const std::string& fontPath, int fontSize) {
+    m_Font = TTF_OpenFont(fontPath.c_str(), fontSize);
+    if (!m_Font) {
+        SDL_Log("Failed to load font: %s", TTF_GetError());
+    }
+}
+
+void TextureManager::DrawText(const std::string& text, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
+    if (!m_Font) return;
+    SDL_Color color = { r, g, b, 255 };
+    SDL_Surface* surface = TTF_RenderText_Solid(m_Font, text.c_str(), color);
+    if (!surface) {
+        SDL_Log("Failed to render text: %s", TTF_GetError());
+        return;
+    }
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(Engine::GetInstance()->GetRenderer(), surface);
+    int w, h;
+    SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+    SDL_Rect dst = { x, y, w, h };
+    SDL_RenderCopy(Engine::GetInstance()->GetRenderer(), texture, nullptr, &dst);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+}
+
 void TextureManager::Drop(string id)
 {
     SDL_DestroyTexture(m_TextureMap[id]);
@@ -49,12 +73,13 @@ void TextureManager::Drop(string id)
 
 void TextureManager::Clean()
 {
-    map<string, SDL_Texture*>::iterator it;
-    for(it = m_TextureMap.begin(); it != m_TextureMap.end(); it++) {
-        SDL_DestroyTexture(it->second);
+    for (auto& pair : m_TextureMap) {
+        SDL_DestroyTexture(pair.second);
     }
     m_TextureMap.clear();
-
-    SDL_Log("Texture map cleaned!");
+    if (m_Font) {
+        TTF_CloseFont(m_Font);
+        m_Font = nullptr;
+    }
 }
 

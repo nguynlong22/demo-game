@@ -12,6 +12,7 @@ class Input
 
         void Listen();
         bool GetKeyDown(SDL_Scancode key);
+        bool GetMouseButtonDown(int button);
 
     private:
         Input();

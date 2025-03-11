@@ -29,6 +29,17 @@ bool Input::GetKeyDown(SDL_Scancode key)
     return false;
 }
 
+bool Input::GetMouseButtonDown(int button)
+{
+    int x, y;
+    Uint32 mouseState = SDL_GetMouseState(&x, &y); // Lấy trạng thái chuột
+
+    if (mouseState & SDL_BUTTON(button)) // Kiểm tra xem nút có được nhấn không
+        return true;
+
+    return false;
+}
+
 void Input::KeyUp()
 {
     m_KeyStates = SDL_GetKeyboardState(nullptr);

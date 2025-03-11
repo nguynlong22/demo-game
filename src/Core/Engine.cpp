@@ -5,12 +5,9 @@
 #include "Input.h"
 #include "SDL.h"
 #include "Timer.h"
-//#include "Background.h"
 
 Engine* Engine::s_Instance = nullptr;
-//Warrior* player = nullptr;
-//Background* m_Background = nullptr;
-AppleThrower* appleThrower = nullptr;
+//AppleThrower* appleThrower = nullptr;
 
 bool Engine::Init()
 {
@@ -25,13 +22,19 @@ bool Engine::Init()
         return false;
     }
 
+    if (TTF_Init() == -1) {
+        std::cout << "Lỗi khi khởi tạo SDL_ttf: " << TTF_GetError() << std::endl;
+    }
+
     m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(m_Renderer == nullptr) {
         SDL_Log("Failed to create renderer: %s", SDL_GetError());
         return false;
     }
 
-    TextureManager::GetInstance()->Load("player", "assets/IDLE.png");
+    PushState(new Menu());
+
+    /*TextureManager::GetInstance()->Load("player", "assets/IDLE.png");
     TextureManager::GetInstance()->Load("player_run", "assets/RUN.png");
     TextureManager::GetInstance()->Load("player_attack1", "assets/ATTACK 1.png");
     TextureManager::GetInstance()->Load("player_attack2", "assets/ATTACK 2.png");
@@ -40,26 +43,24 @@ bool Engine::Init()
     TextureManager::GetInstance()->Load("apple", "assets/apple.png");
 
     player = new Warrior(new Properties("player", 100, 420, 128, 128));
-    appleThrower = new AppleThrower();
+    appleThrower = new AppleThrower();*/
 
     return m_IsRunning = true;
 }
 
 void Engine::Render()
 {
-    SDL_RenderClear(m_Renderer);
-    TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    player->Draw();
-    appleThrower->Draw();
-    SDL_RenderPresent(m_Renderer);
+    if (!m_States.empty()) {
+        m_States.back()->Render();
+    }
 }
 
 void Engine::Update()
 {
-    float dt = Timer::GetInstance()->GetDeltaTime();
-    player->Update(dt);
-    //m_Background->Update(dt);
-    appleThrower->Update(dt, player->GetCollider());
+    if (!m_States.empty()) {
+        float dt = Timer::GetInstance()->GetDeltaTime();
+        m_States.back()->Update(dt);
+    }
 }
 
 void Engine::Events()
@@ -69,12 +70,15 @@ void Engine::Events()
 
 bool Engine::Clean()
 {
-    //delete m_Background;
-    delete appleThrower;
-    delete player;
+    while (!m_States.empty()) {
+        m_States.back()->Exit();
+        delete m_States.back();
+        m_States.pop_back();
+    }
     TextureManager::GetInstance()->Clean();
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
 }
@@ -82,4 +86,27 @@ bool Engine::Clean()
 void Engine::Quit()
 {
     m_IsRunning = false;
+}
+
+void Engine::PushState(GameState* state) {
+    m_States.push_back(state);
+    state->Enter();
+}
+
+void Engine::PopState() {
+    if (!m_States.empty()) {
+        m_States.back()->Exit();
+        delete m_States.back();
+        m_States.pop_back();
+    }
+}
+
+void Engine::ChangeState(GameState* state) {
+    if (!m_States.empty()) {
+        m_States.back()->Exit();
+        delete m_States.back();
+        m_States.pop_back();
+    }
+    m_States.push_back(state);
+    state->Enter();
 }

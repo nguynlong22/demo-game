@@ -25,6 +25,7 @@
 					<Add directory="src/Background" />
 					<Add directory="src/Obstacle" />
 					<Add directory="src/Apple" />
+					<Add directory="src/States" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -46,6 +47,7 @@
 					<Add directory="src/Background" />
 					<Add directory="src/Obstacle" />
 					<Add directory="src/Apple" />
+					<Add directory="src/States" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -57,12 +59,14 @@
 			<Add directory="D:/SDL2-2.0.20/x86_64-w64-mingw32/include/SDL2" />
 			<Add directory="D:/SDL2-2.0.20/SDL2_ttf-2.20.0/x86_64-w64-mingw32/include/SDL2" />
 			<Add directory="D:/SDL2_image-2.8.5/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="../../SDL2_mixer-2.8.1/x86_64-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
-			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image" />
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer" />
 			<Add directory="D:/SDL2-2.0.20/x86_64-w64-mingw32/lib" />
 			<Add directory="D:/SDL2-2.0.20/SDL2_ttf-2.20.0/x86_64-w64-mingw32/lib" />
 			<Add directory="D:/SDL2_image-2.8.5/x86_64-w64-mingw32/lib" />
+			<Add directory="../../SDL2_mixer-2.8.1/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="Demo.cpp" />
 		<Unit filename="src/Animation/Animation.cpp" />
@@ -87,6 +91,11 @@
 		<Unit filename="src/Physics/RigidBody.h" />
 		<Unit filename="src/Physics/Transform.h" />
 		<Unit filename="src/Physics/Vector2D.h" />
+		<Unit filename="src/States/GameState.h" />
+		<Unit filename="src/States/Menu.cpp" />
+		<Unit filename="src/States/Menu.h" />
+		<Unit filename="src/States/Play.cpp" />
+		<Unit filename="src/States/Play.h" />
 		<Unit filename="src/Timer/Timer.cpp" />
 		<Unit filename="src/Timer/Timer.h" />
 		<Extensions>

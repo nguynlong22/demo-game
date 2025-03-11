@@ -1,36 +1,24 @@
 #ifndef PLAY_H
 #define PLAY_H
 
-#include <iostream>
-#include <vector>
-#include "GameObject.h"
 #include "GameState.h"
 #include "Warrior.h"
-#include "Menu.h"
-#include "Timer.h"
-#include "Input.h"
-#include "TextureManager.h"
-#include "Collision.h"
+#include "AppleThrower.h"
 
-class Play : public GameState {
+class PlayState : public GameState {
 public:
-    Play();
+    PlayState();
+    ~PlayState() override;
+    void Update(float dt) override;
+    void Render() override;
+    void Enter() override;
+    void Exit() override;
 
-    void Events();
-    virtual bool Init();
-    virtual bool Exit();
-    virtual void Update();
-    virtual void Render();
-
-    //inline GameMap* GetMap() { return m_LevelMap; }
-
-private:
-    static void OpenMenu();
-    static void PauseGame();
+    inline Warrior* GetPlayer() {return player;}
 
 private:
-    bool m_EditMode;
-    std::vector<GameObject*> m_GameObjects;
+    AppleThrower* appleThrower;
+    Warrior* player;
 };
 
 #endif // PLAY_H
