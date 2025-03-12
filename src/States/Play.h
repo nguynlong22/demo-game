@@ -15,10 +15,12 @@ public:
     void Exit() override;
 
     inline Warrior* GetPlayer() {return player;}
+    void AddScore(int points);
 
 private:
     AppleThrower* appleThrower;
     Warrior* player;
+    int score = 0;
 };
 
 #endif // PLAY_H

@@ -4,14 +4,18 @@
 #include "Warrior.h"
 #include <vector>
 
+class PlayState;
+
 class AppleThrower {
 private:
     std::vector<Apple*> apples;
-    float throwInterval = 50.0f;
-    float timeSinceLastThrow = 0.0f;
-    Warrior* player;
+    float throwInterval = 80.0f;        // Khoảng cách ban đầu giữa các lần spawn
+    float minThrowInterval = 10.0f;     // Giới hạn nhỏ nhất của throwInterval
+    float timeSinceLastThrow = 0.0f;   // Thời gian kể từ lần spawn cuối
+    float totalTime = 0.0f;
+    PlayState* m_PlayState;
 public:
-    AppleThrower(Warrior *p);
+    AppleThrower(PlayState* playState);
     void Update(float dt, const SDL_Rect& p);
     void ThrowApple();
     void Draw();

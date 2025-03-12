@@ -6,34 +6,36 @@
 #include <cstdlib>
 #include <ctime>
 
-AppleThrower::AppleThrower(Warrior *p) {
+AppleThrower::AppleThrower(PlayState* playState) : m_PlayState(playState) {
     std::srand(std::time(nullptr));
-    player = p;
 }
 
-void AppleThrower::Update(float dt, const SDL_Rect& swordRect) {
+void AppleThrower::Update(float dt, const SDL_Rect& p) {
+    totalTime += dt; // Cộng dồn thời gian chơi
     timeSinceLastThrow += dt;
+    std::cout << "dt: " << dt << std::endl;
+
+    // Giảm throwInterval theo thời gian (tuyến tính)
+    throwInterval = 50.0f - (totalTime * 0.2f); // Giảm 0.05 mỗi giây
+    if (throwInterval < minThrowInterval) {
+        throwInterval = minThrowInterval; // Giới hạn tối thiểu
+    }
+
     if (timeSinceLastThrow >= throwInterval) {
         ThrowApple();
         timeSinceLastThrow = 0.0f;
     }
 
+    Warrior* player = m_PlayState->GetPlayer();
+    SDL_Rect warriorCollider = player->GetCollider();
+
     for (auto it = apples.begin(); it != apples.end();) {
         Apple* apple = *it;
         apple->Update(dt);
-
-        // Kiểm tra nếu chém trúng
-        /*if (!apple->isCut && Collision::CheckCollision(apple->GetRect(), swordRect)) {
-            apple->Cut();
-            delete apple;
-            it = apples.erase(it);
-            continue;
-        }*/
-
-        if (!apple->isCut && Collision::CheckCollision(apple->GetRect(), player->GetCollider())) {
-            apple->isMissed = true; // Táo chạm Warrior
+        if (!apple->isCut && Collision::CheckCollision(apple->GetRect(), warriorCollider)) {
+            apple->isMissed = true;
+            m_PlayState->AddScore(10);
         }
-
         // Xóa táo nếu nó bị bỏ lỡ
         if (apple->isMissed) {
             delete apple;
