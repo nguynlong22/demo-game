@@ -35,6 +35,8 @@ void Menu::Render() {
     TextureManager::GetInstance()->Load("bg", "assets/background.png");
     TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+    TextureManager::GetInstance()->DrawText("Fruit Collector", 400, 100, 255, 255, 255);
+
     // Vẽ nút Play
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Xanh lá
     SDL_RenderFillRect(renderer, &playButton);

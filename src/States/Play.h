@@ -18,6 +18,7 @@ public:
     inline Warrior* GetPlayer() {return player;}
     void AddScore(int points);
     void LoseHeart(); // Thêm để giảm heart
+    int GetScore() const { return score; }
     static bool HasPlayed() { return hasPlayed; }
 
 private:

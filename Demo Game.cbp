@@ -95,6 +95,8 @@
 		<Unit filename="src/Physics/RigidBody.h" />
 		<Unit filename="src/Physics/Transform.h" />
 		<Unit filename="src/Physics/Vector2D.h" />
+		<Unit filename="src/States/GameOver.cpp" />
+		<Unit filename="src/States/GameOver.h" />
 		<Unit filename="src/States/GameState.h" />
 		<Unit filename="src/States/Menu.cpp" />
 		<Unit filename="src/States/Menu.h" />

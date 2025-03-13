@@ -5,6 +5,7 @@
 #include"SDL_image.h"
 #include"GameState.h"
 #include"Menu.h"
+#include"GameOver.h"
 #include<vector>
 
 #define SCREEN_WIDTH 960

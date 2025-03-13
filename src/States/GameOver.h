@@ -1,22 +1,24 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef GAMEOVER_H
+#define GAMEOVER_H
 #include "GameState.h"
 #include "SDL.h"
 #include "TextureManager.h"
 #include "Input.h"
 
-class Menu : public GameState {
+
+class GameOver : public GameState
+{
 public:
-    Menu();
+    GameOver(int finalScore);
     void Update(float dt) override;
     void Render() override;
     void Enter() override;
     void Exit() override;
 
 private:
-    SDL_Rect playButton;
+    SDL_Rect retryButton;
     SDL_Rect exitButton;
-    SDL_Rect continueButton;
+    int m_FinalScore;
 };
 
-#endif // MENU_H
+#endif // GAMEOVER_H

@@ -35,6 +35,7 @@ void FruitThrower::Update(float dt) {
             m_PlayState->AddScore(fruit->GetPointValue());
             delete fruit;
             it = fruits.erase(it);
+            continue;
         }
         if (fruit->GetRect().y > SCREEN_HEIGHT) {
             fruit->isMissed = true;

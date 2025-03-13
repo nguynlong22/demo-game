@@ -25,7 +25,7 @@ void PlayState::Update(float dt) {
     }
 
     if (hearts->IsGameOver()) {
-        Engine::GetInstance()->PushState(new Menu()); // Quay lại Menu khi hết mạng
+        Engine::GetInstance()->PushState(new GameOver(score)); // Quay lại Menu khi hết mạng
         // Có thể thêm GameOverState nếu muốn
     }
 

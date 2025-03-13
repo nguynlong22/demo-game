@@ -382,11 +382,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741855959 d:\demo\demo game\src\core\engine.h
+1741865210 d:\demo\demo game\src\core\engine.h
 	"SDL.h"
 	"SDL_image.h"
 	"GameState.h"
 	"Menu.h"
+	"GameOver.h"
 	<vector>
 
 1741862437 source:d:\demo\demo game\src\core\engine.cpp
@@ -525,7 +526,7 @@
 	"TextureManager.h"
 	"RigidBody.h"
 
-1741862086 source:d:\demo\demo game\src\apple\applethrower.cpp
+1741865055 source:d:\demo\demo game\src\apple\applethrower.cpp
 	"AppleThrower.h"
 	"Collision.h"
 	"Engine.h"
@@ -545,19 +546,19 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741862376 source:d:\demo\demo game\src\states\play.cpp
+1741866007 source:d:\demo\demo game\src\states\play.cpp
 	"Play.h"
 	"Engine.h"
 	"Input.h"
 	"TextureManager.h"
 
-1741862033 d:\demo\demo game\src\states\play.h
+1741865950 d:\demo\demo game\src\states\play.h
 	"GameState.h"
 	"Warrior.h"
 	"AppleThrower.h"
 	"Heart.h"
 
-1741856433 d:\demo\demo game\src\states\menu.h
+1741866213 d:\demo\demo game\src\states\menu.h
 	"GameState.h"
 	"SDL.h"
 	"TextureManager.h"
@@ -575,4 +576,15 @@
 
 1741861704 d:\demo\demo game\src\heart\heart.h
 	"SDL.h"
+
+1741865950 source:d:\demo\demo game\src\states\gameover.cpp
+	"GameOver.h"
+	"Engine.h"
+	"Play.h"
+
+1741865950 d:\demo\demo game\src\states\gameover.h
+	"GameState.h"
+	"SDL.h"
+	"TextureManager.h"
+	"Input.h"
 
