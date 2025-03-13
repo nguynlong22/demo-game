@@ -382,14 +382,14 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741684112 d:\demo\demo game\src\core\engine.h
+1741855959 d:\demo\demo game\src\core\engine.h
 	"SDL.h"
 	"SDL_image.h"
 	"GameState.h"
 	"Menu.h"
 	<vector>
 
-1741683757 source:d:\demo\demo game\src\core\engine.cpp
+1741862437 source:d:\demo\demo game\src\core\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"AppleThrower.h"
@@ -420,7 +420,7 @@
 1739929967 d:\demo\demo game\src\physics\transform.h
 	"Vector2D.h"
 
-1741620181 source:d:\demo\demo game\src\characters\warrior.cpp
+1741861670 source:d:\demo\demo game\src\characters\warrior.cpp
 	"Warrior.h"
 	"TextureManager.h"
 	"SDL.h"
@@ -454,7 +454,7 @@
 	"SDL.h"
 	"TextureManager.h"
 
-1741617127 d:\demo\demo game\src\physics\rigidbody.h
+1741857524 d:\demo\demo game\src\physics\rigidbody.h
 	"Vector2D.h"
 
 1741683357 d:\demo\demo game\src\inputs\input.h
@@ -509,28 +509,29 @@
 1741404193 d:\demo\demo game\src\physics\collision.h
 	"SDL.h"
 
-1741704807 d:\demo\demo game\src\apple\applethrower.h
+1741860759 d:\demo\demo game\src\apple\applethrower.h
 	"Apple.h"
 	"Warrior.h"
 	<vector>
 
-1741576093 d:\demo\demo game\src\apple\apple.h
+1741860899 d:\demo\demo game\src\apple\apple.h
 	"GameObject.h"
 	"Vector2D.h"
 	"TextureManager.h"
 
-1741618738 source:d:\demo\demo game\src\apple\apple.cpp
+1741860899 source:d:\demo\demo game\src\apple\apple.cpp
 	"Apple.h"
 	"Engine.h"
 	"TextureManager.h"
 	"RigidBody.h"
 
-1741704788 source:d:\demo\demo game\src\apple\applethrower.cpp
+1741862086 source:d:\demo\demo game\src\apple\applethrower.cpp
 	"AppleThrower.h"
 	"Collision.h"
 	"Engine.h"
 	"Warrior.h"
 	"Play.h"
+	"Heart.h"
 	<cstdlib>
 	<ctime>
 
@@ -544,25 +545,34 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741703277 source:d:\demo\demo game\src\states\play.cpp
+1741862376 source:d:\demo\demo game\src\states\play.cpp
 	"Play.h"
 	"Engine.h"
 	"Input.h"
 	"TextureManager.h"
 
-1741703478 d:\demo\demo game\src\states\play.h
+1741862033 d:\demo\demo game\src\states\play.h
 	"GameState.h"
 	"Warrior.h"
 	"AppleThrower.h"
+	"Heart.h"
 
-1741682637 d:\demo\demo game\src\states\menu.h
+1741856433 d:\demo\demo game\src\states\menu.h
 	"GameState.h"
 	"SDL.h"
 	"TextureManager.h"
 	"Input.h"
 
-1741683647 source:d:\demo\demo game\src\states\menu.cpp
+1741856966 source:d:\demo\demo game\src\states\menu.cpp
 	"Menu.h"
 	"Engine.h"
 	"Play.h"
+
+1741862451 source:d:\demo\demo game\src\heart\heart.cpp
+	"Heart.h"
+	"TextureManager.h"
+	"Engine.h"
+
+1741861704 d:\demo\demo game\src\heart\heart.h
+	"SDL.h"
 

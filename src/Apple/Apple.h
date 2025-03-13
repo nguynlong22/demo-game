@@ -5,20 +5,20 @@
 #include "Vector2D.h"
 #include "TextureManager.h"
 
-class Apple : public GameObject  // Kế thừa GameObject
+class Fruit : public GameObject  // Kế thừa GameObject
 {
 public:
     Vector2D velocity;
-    bool isCut = false;
+    int m_PointValue;
     bool isMissed = false;
 
-    Apple(Properties* props, Vector2D vel);
+    Fruit(Properties* props, Vector2D vel, int pointValue);
 
     void Update(float dt) override;  // Ghi đè từ GameObject
     void Draw() override;            // Ghi đè từ GameObject
     void Clean() override;
-    void Cut();
     SDL_Rect GetRect();
+    int GetPointValue() { return m_PointValue; }
 };
 
 #endif // APPLE_H

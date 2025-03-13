@@ -17,6 +17,7 @@ public:
 private:
     SDL_Rect playButton;
     SDL_Rect exitButton;
+    SDL_Rect continueButton;
 };
 
 #endif // MENU_H

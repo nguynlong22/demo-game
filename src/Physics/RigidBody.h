@@ -23,6 +23,7 @@ class RigidBody
         //Setter Gravity && Mass
         inline void SetMass(float mass) {m_Mass = mass;}
         inline void SetGravity(float gravity) {m_Gravity = gravity;}
+        void SetPositionX(float x) { m_Postition.X = x; m_Velocity.X = 0; }
 
         //Force
         inline void ApplyForce(Vector2D F){m_Force = F;}
@@ -48,11 +49,7 @@ class RigidBody
             m_Postition = m_Velocity * dt;
         }
 
-        void Jump(float force) {
-            if (m_Velocity.Y == 0) {
-                ApplyForceY(-force);
-            }
-        }
+
     private:
         float m_Mass;
         float m_Gravity;

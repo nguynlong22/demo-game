@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "Warrior.h"
 #include "AppleThrower.h"
+#include "Heart.h"
 
 class PlayState : public GameState {
 public:
@@ -16,10 +17,14 @@ public:
 
     inline Warrior* GetPlayer() {return player;}
     void AddScore(int points);
+    void LoseHeart(); // Thêm để giảm heart
+    static bool HasPlayed() { return hasPlayed; }
 
 private:
-    AppleThrower* appleThrower;
+    static bool hasPlayed;
+    FruitThrower* fruitThrower;
     Warrior* player;
+    Heart* hearts; // Thêm Heart
     int score = 0;
 };
 

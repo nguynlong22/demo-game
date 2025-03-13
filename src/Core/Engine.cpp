@@ -7,7 +7,6 @@
 #include "Timer.h"
 
 Engine* Engine::s_Instance = nullptr;
-//AppleThrower* appleThrower = nullptr;
 
 bool Engine::Init()
 {
@@ -33,17 +32,6 @@ bool Engine::Init()
     }
 
     PushState(new Menu());
-
-    /*TextureManager::GetInstance()->Load("player", "assets/IDLE.png");
-    TextureManager::GetInstance()->Load("player_run", "assets/RUN.png");
-    TextureManager::GetInstance()->Load("player_attack1", "assets/ATTACK 1.png");
-    TextureManager::GetInstance()->Load("player_attack2", "assets/ATTACK 2.png");
-    TextureManager::GetInstance()->Load("player_attack3", "assets/ATTACK 3.png");
-    TextureManager::GetInstance()->Load("bg", "assets/background.png");
-    TextureManager::GetInstance()->Load("apple", "assets/apple.png");
-
-    player = new Warrior(new Properties("player", 100, 420, 128, 128));
-    appleThrower = new AppleThrower();*/
 
     return m_IsRunning = true;
 }
