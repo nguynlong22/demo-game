@@ -4,9 +4,9 @@
 
 Menu::Menu()
 {
-    playButton = {400, 200, 160, 80};
-    exitButton = { 400, 400, 160, 80 };
-    continueButton = {400, 300, 160, 80};
+    playButton = {430, 470, 160, 80};
+    exitButton = { 430, 570, 160, 80 };
+    continueButton = {430, 520, 160, 80};
 }
 
 void Menu::Update(float dt) {
@@ -32,23 +32,23 @@ void Menu::Update(float dt) {
 void Menu::Render() {
     SDL_Renderer* renderer = Engine::GetInstance()->GetRenderer();
     SDL_RenderClear(renderer);
-    TextureManager::GetInstance()->Load("bg", "assets/background.png");
-    TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    TextureManager::GetInstance()->DrawText("Fruit Collector", 400, 100, 255, 255, 255);
+    TextureManager::GetInstance()->Load("menu", "assets/menu.png");
+    TextureManager::GetInstance()->Draw("menu", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     // Vẽ nút Play
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Xanh lá
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
     SDL_RenderFillRect(renderer, &playButton);
-    TextureManager::GetInstance()->DrawText("Play", playButton.x + 40, playButton.y + 20, 255, 255, 255);
+    TextureManager::GetInstance()->DrawText("New Game", playButton.x + 10 , playButton.y + 20, 255, 255, 255);
 
     // Vẽ nút Exit
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Đỏ
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
     SDL_RenderFillRect(renderer, &exitButton);
-    TextureManager::GetInstance()->DrawText("Exit", exitButton.x + 40, exitButton.y + 20, 255, 255, 255);
+    TextureManager::GetInstance()->DrawText("Exit", exitButton.x + 50, exitButton.y + 20, 255, 255, 255);
 
     if (PlayState::HasPlayed()) {
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Đỏ
+        SDL_SetRenderDrawColor(renderer, 128, 217, 134, 0.8); // Đỏ
         SDL_RenderFillRect(renderer, &continueButton);
         TextureManager::GetInstance()->DrawText("Continue", continueButton.x + 20, continueButton.y + 20, 255, 255, 255);
     }
@@ -57,7 +57,7 @@ void Menu::Render() {
 }
 
 void Menu::Enter() {
-    TextureManager::GetInstance()->LoadFont("assets/arial.ttf", 32); // Load font nếu cần
+    TextureManager::GetInstance()->LoadFont("assets/BubblegumSans.ttf", 32); // Load font nếu cần
 }
 
 void Menu::Exit()

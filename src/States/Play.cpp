@@ -6,17 +6,23 @@
 bool PlayState::hasPlayed = false;
 
 PlayState::PlayState() {
-    player = new Warrior(new Properties("player", 100, 420, 128, 128));
+    player1 = new Warrior(new Properties("player", 100, 420, 128, 128));
+    player2 = new Warrior(new Properties("player", 600, 420, 128, 128));
     fruitThrower = new FruitThrower(this);
-    hearts = new Heart(5); // Khởi tạo 5 mạng
+    hearts1 = new Heart(5); // Khởi tạo 5 mạng
+    hearts2 = new Heart(5);
     hasPlayed = true;
-    score = 0;
+    score1 = 0;
+    score2 = 0;
+    activeSide = 0;
 }
 
 PlayState::~PlayState() {
-    delete player;
+    delete player1;
+    delete player2;
     delete fruitThrower;
-    delete hearts;
+    delete hearts1;
+    delete hearts2;
 }
 
 void PlayState::Update(float dt) {
@@ -24,12 +30,20 @@ void PlayState::Update(float dt) {
         Engine::GetInstance()->PushState(new Menu()); // Quay lại Menu
     }
 
-    if (hearts->IsGameOver()) {
-        Engine::GetInstance()->PushState(new GameOver(score)); // Quay lại Menu khi hết mạng
-        // Có thể thêm GameOverState nếu muốn
+    if (hearts1->IsGameOver() && !hearts2->IsGameOver()) {
+        activeSide = 2; // Chỉ bên Player 2
+    } else if (hearts2->IsGameOver() && !hearts1->IsGameOver()) {
+        activeSide = 1; // Chỉ bên Player 1
+    } else if (hearts1->IsGameOver() && hearts2->IsGameOver()) {
+        int winner = (score2 > score1) ? 2 : 1;
+        Engine::GetInstance()->PushState(new GameOver(score1, score2, winner));
+        return; // Dừng cập nhật khi cả hai hết mạng
+    } else {
+        activeSide = 0; // Cả hai bên
     }
 
-    player->Update(dt);
+    player1->Update(dt);
+    player2->Update(dt);
     fruitThrower->Update(dt);
 }
 
@@ -38,34 +52,66 @@ void PlayState::Render() {
     SDL_SetRenderDrawColor(renderer, 135, 206, 235, 255); // Nền xanh trời
     SDL_RenderClear(renderer);
     TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    player->Draw();
-    fruitThrower->Draw();
-    hearts->Draw(); // Vẽ trái tim
 
-    std::string scoreText = "Score: " + std::to_string(score);
-    TextureManager::GetInstance()->DrawText(scoreText, 10, 10, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Màu trắng
+    SDL_RenderDrawLine(renderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+
+    player1->Draw();
+    player2->Draw();
+
+    hearts1->Draw1();
+    hearts2->Draw2();
+
+    fruitThrower->Draw();
+
+    std::string scoreText1 = "P1 Score: " + std::to_string(score1);
+    TextureManager::GetInstance()->DrawText(scoreText1, 10, 10, 255, 255, 255);
+
+    // Hiển thị điểm Player 2
+    std::string scoreText2 = "P2 Score: " + std::to_string(score2);
+    TextureManager::GetInstance()->DrawText(scoreText2, SCREEN_WIDTH - 200, 10, 255, 255, 255);
+
+    if (hearts1->IsGameOver()) {
+        TextureManager::GetInstance()->DrawText("Game Over", SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa trái, màu đỏ
+    }
+    if (hearts2->IsGameOver()) {
+        TextureManager::GetInstance()->DrawText("Game Over", 3 * SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa phải, màu đỏ
+    }
 
     SDL_RenderPresent(renderer);
 }
 
 void PlayState::Enter() {
     TextureManager::GetInstance()->Load("bg", "assets/background.png");
-    TextureManager::GetInstance()->Load("player", "assets/IDLE.png");
-    TextureManager::GetInstance()->Load("player_run", "assets/RUN.png");
+
+    TextureManager::GetInstance()->Load("player1", "assets/Idle1.png");
+    TextureManager::GetInstance()->Load("player_run1", "assets/Run1.png");
+    TextureManager::GetInstance()->Load("player2", "assets/Idle2.png");
+    TextureManager::GetInstance()->Load("player_run2", "assets/Run2.png");
+
     TextureManager::GetInstance()->Load("apple", "assets/apple.png");
     TextureManager::GetInstance()->Load("lemonade", "assets/lemonade.png");
     TextureManager::GetInstance()->Load("orange", "assets/orange.png");
     TextureManager::GetInstance()->Load("banana", "assets/banana.png");
+
     TextureManager::GetInstance()->Load("heart", "assets/heart.png");
     TextureManager::GetInstance()->LoadFont("assets/arial.ttf", 32);
 }
 
-void PlayState::AddScore(int points) {
-    score += points;
+void PlayState::AddScorePlayer1(int points) {
+    score1 += points;
 }
 
-void PlayState::LoseHeart() {
-    hearts->LoseHeart(); // Định nghĩa hàm, giảm 1 mạng
+void PlayState::AddScorePlayer2(int points) {
+    score2 += points;
+}
+
+void PlayState::LoseHeartPlayer1() {
+    hearts1->LoseHeart();
+}
+
+void PlayState::LoseHeartPlayer2() {
+    hearts2->LoseHeart();
 }
 
 void PlayState::Exit() {

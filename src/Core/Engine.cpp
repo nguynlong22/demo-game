@@ -15,7 +15,7 @@ bool Engine::Init()
         return false;
     }
 
-    m_Window = SDL_CreateWindow("Soft Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+    m_Window = SDL_CreateWindow("Demo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     if(m_Window == nullptr) {
         SDL_Log("Failed to create window: %s", SDL_GetError());
         return false;

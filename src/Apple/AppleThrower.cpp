@@ -15,7 +15,7 @@ void FruitThrower::Update(float dt) {
     float realTime = SDL_GetTicks() / 1000.0f;
     timeSinceLastThrow += dt;
 
-    throwInterval = 100.0f - (realTime * 0.05f);
+    throwInterval = 50.0f - (realTime * 0.05f);
     if (throwInterval < minThrowInterval) {
         throwInterval = minThrowInterval;
     }
@@ -25,23 +25,37 @@ void FruitThrower::Update(float dt) {
         timeSinceLastThrow = 0.0f;
     }
 
-    Warrior* player = m_PlayState->GetPlayer();
-    SDL_Rect warriorCollider = player->GetCollider();
+    Warrior* player1 = m_PlayState->GetPlayer();   // Player 1
+    Warrior* player2 = m_PlayState->GetPlayer2();  // Player 2
+    SDL_Rect warriorCollider1 = player1->GetCollider();
+    SDL_Rect warriorCollider2 = player2->GetCollider();
 
     for (auto it = fruits.begin(); it != fruits.end();) {
         Fruit* fruit = *it;
         fruit->Update(dt);
-        if (Collision::CheckCollision(fruit->GetRect(), warriorCollider)) {
-            m_PlayState->AddScore(fruit->GetPointValue());
+
+        if (Collision::CheckCollision(fruit->GetRect(), warriorCollider1)) {
+            m_PlayState->AddScorePlayer1(fruit->GetPointValue());
             delete fruit;
             it = fruits.erase(it);
             continue;
         }
+
+        if (Collision::CheckCollision(fruit->GetRect(), warriorCollider2)) {
+            m_PlayState->AddScorePlayer2(fruit->GetPointValue());
+            delete fruit;
+            it = fruits.erase(it);
+            continue;
+        }
+
         if (fruit->GetRect().y > SCREEN_HEIGHT) {
             fruit->isMissed = true;
-        }
-        if (fruit->isMissed) {
-            m_PlayState->LoseHeart();
+
+            if (fruit->GetRect().x < SCREEN_WIDTH / 2) {
+                m_PlayState->LoseHeartPlayer1(); // Player 1 bỏ lỡ
+            } else {
+                m_PlayState->LoseHeartPlayer2(); // Player 2 bỏ lỡ
+            }
             delete fruit;
             it = fruits.erase(it);
         } else {
@@ -51,7 +65,18 @@ void FruitThrower::Update(float dt) {
 }
 
 void FruitThrower::ThrowFruit() {
-    int randomX = std::rand() % (SCREEN_WIDTH - 64);
+    int halfScreen = SCREEN_WIDTH / 2;
+    int randomX;
+    int activeSide = m_PlayState->GetActiveSide();
+
+    if (activeSide == 0) {
+        randomX = rand() % SCREEN_WIDTH; // Cả hai bên
+    } else if (activeSide == 1) {
+        randomX = rand() % halfScreen; // Chỉ bên trái
+    } else {
+        randomX = halfScreen + (rand() % halfScreen); // Chỉ bên phải
+    }
+
     Vector2D startPos(randomX, 0);
     Vector2D velocity(0, 0);
 

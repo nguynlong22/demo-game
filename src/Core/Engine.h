@@ -9,7 +9,7 @@
 #include<vector>
 
 #define SCREEN_WIDTH 960
-#define SCREEN_HEIGHT 640
+#define SCREEN_HEIGHT 800
 
 class Engine
 {

@@ -9,7 +9,7 @@ class PlayState;
 class FruitThrower {
 private:
     std::vector<Fruit*> fruits;
-    float throwInterval = 100.0f;
+    float throwInterval = 50.0f;
     float minThrowInterval = 10.0f;
     float timeSinceLastThrow = 0.0f;
     PlayState* m_PlayState;

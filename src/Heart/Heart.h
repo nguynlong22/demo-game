@@ -10,7 +10,8 @@ private:
 public:
     Heart(int maxHearts = 5);
     void LoseHeart(); // Giảm 1 mạng
-    void Draw(); // Vẽ biểu tượng trái tim
+    void Draw1(); // Vẽ biểu tượng trái tim
+    void Draw2();
     bool IsGameOver() const { return m_Hearts <= 0; }
     int GetHearts() const { return m_Hearts; }
 };
