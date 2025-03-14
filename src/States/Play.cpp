@@ -6,8 +6,8 @@
 bool PlayState::hasPlayed = false;
 
 PlayState::PlayState() {
-    player1 = new Warrior(new Properties("player", 100, 420, 128, 128));
-    player2 = new Warrior(new Properties("player", 600, 420, 128, 128));
+    player1 = new Warrior(new Properties("player", 100, 600, 128, 128));
+    player2 = new Warrior(new Properties("player", 600, 600, 128, 128));
     fruitThrower = new FruitThrower(this);
     hearts1 = new Heart(5); // Khởi tạo 5 mạng
     hearts2 = new Heart(5);
@@ -23,6 +23,7 @@ PlayState::~PlayState() {
     delete fruitThrower;
     delete hearts1;
     delete hearts2;
+    if (pickupSound) Mix_FreeChunk(pickupSound);
 }
 
 void PlayState::Update(float dt) {
@@ -72,10 +73,10 @@ void PlayState::Render() {
     TextureManager::GetInstance()->DrawText(scoreText2, SCREEN_WIDTH - 200, 10, 255, 255, 255);
 
     if (hearts1->IsGameOver()) {
-        TextureManager::GetInstance()->DrawText("Game Over", SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa trái, màu đỏ
+        TextureManager::GetInstance()->DrawText("Game Over", 200, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa trái, màu đỏ
     }
     if (hearts2->IsGameOver()) {
-        TextureManager::GetInstance()->DrawText("Game Over", 3 * SCREEN_WIDTH / 4, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa phải, màu đỏ
+        TextureManager::GetInstance()->DrawText("Game Over", 650, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa phải, màu đỏ
     }
 
     SDL_RenderPresent(renderer);
@@ -96,6 +97,12 @@ void PlayState::Enter() {
 
     TextureManager::GetInstance()->Load("heart", "assets/heart.png");
     TextureManager::GetInstance()->LoadFont("assets/arial.ttf", 32);
+
+    pickupSound = Mix_LoadWAV("assets/pickUpSound.mp3");
+    if (!pickupSound) {
+        SDL_Log("Failed to load pickup sound! SDL_mixer Error: %s", Mix_GetError());
+    }
+    fruitThrower->SetPickupSound(pickupSound);
 }
 
 void PlayState::AddScorePlayer1(int points) {
@@ -115,5 +122,4 @@ void PlayState::LoseHeartPlayer2() {
 }
 
 void PlayState::Exit() {
-    // Texture sẽ được dọn dẹp trong Engine::Clean()
 }

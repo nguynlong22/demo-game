@@ -36,6 +36,7 @@ void FruitThrower::Update(float dt) {
 
         if (Collision::CheckCollision(fruit->GetRect(), warriorCollider1)) {
             m_PlayState->AddScorePlayer1(fruit->GetPointValue());
+            if (m_PickupSound) Mix_PlayChannel(-1, m_PickupSound, 0);
             delete fruit;
             it = fruits.erase(it);
             continue;
@@ -43,6 +44,7 @@ void FruitThrower::Update(float dt) {
 
         if (Collision::CheckCollision(fruit->GetRect(), warriorCollider2)) {
             m_PlayState->AddScorePlayer2(fruit->GetPointValue());
+            if (m_PickupSound) Mix_PlayChannel(-1, m_PickupSound, 0);
             delete fruit;
             it = fruits.erase(it);
             continue;
@@ -70,11 +72,11 @@ void FruitThrower::ThrowFruit() {
     int activeSide = m_PlayState->GetActiveSide();
 
     if (activeSide == 0) {
-        randomX = rand() % SCREEN_WIDTH; // Cả hai bên
+        randomX = 50 + rand() % (920 - 50 + 1); // Cả hai bên
     } else if (activeSide == 1) {
-        randomX = rand() % halfScreen; // Chỉ bên trái
+        randomX = 50 + rand() % (450 - 50 + 1); // Chỉ bên trái
     } else {
-        randomX = halfScreen + (rand() % halfScreen); // Chỉ bên phải
+        randomX = 500 + rand() % (920 - 500 + 1); // Chỉ bên phải
     }
 
     Vector2D startPos(randomX, 0);

@@ -5,6 +5,7 @@
 #include "Warrior.h"
 #include "AppleThrower.h"
 #include "Heart.h"
+#include "SDL_mixer.h"
 
 class PlayState : public GameState {
 public:
@@ -30,6 +31,7 @@ public:
 
 private:
     static bool hasPlayed;
+    Mix_Chunk* pickupSound = nullptr;
     FruitThrower* fruitThrower;
     Warrior* player1;
     Warrior* player2;

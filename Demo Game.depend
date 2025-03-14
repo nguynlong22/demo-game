@@ -382,15 +382,16 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741933014 d:\demo\demo game\src\core\engine.h
+1741969267 d:\demo\demo game\src\core\engine.h
 	"SDL.h"
 	"SDL_image.h"
+	"SDL_mixer.h"
 	"GameState.h"
 	"Menu.h"
 	"GameOver.h"
 	<vector>
 
-1741933741 source:d:\demo\demo game\src\core\engine.cpp
+1741969267 source:d:\demo\demo game\src\core\engine.cpp
 	"Engine.h"
 	"TextureManager.h"
 	"AppleThrower.h"
@@ -510,10 +511,11 @@
 1741404193 d:\demo\demo game\src\physics\collision.h
 	"SDL.h"
 
-1741931047 d:\demo\demo game\src\apple\applethrower.h
+1741969644 d:\demo\demo game\src\apple\applethrower.h
 	"Apple.h"
 	"Warrior.h"
 	<vector>
+	"SDL_mixer.h"
 
 1741860899 d:\demo\demo game\src\apple\apple.h
 	"GameObject.h"
@@ -526,7 +528,7 @@
 	"TextureManager.h"
 	"RigidBody.h"
 
-1741931504 source:d:\demo\demo game\src\apple\applethrower.cpp
+1741969937 source:d:\demo\demo game\src\apple\applethrower.cpp
 	"AppleThrower.h"
 	"Collision.h"
 	"Engine.h"
@@ -546,28 +548,31 @@
 	"begin_code.h"
 	"close_code.h"
 
-1741931646 source:d:\demo\demo game\src\states\play.cpp
+1741970029 source:d:\demo\demo game\src\states\play.cpp
 	"Play.h"
 	"Engine.h"
 	"Input.h"
 	"TextureManager.h"
 
-1741931504 d:\demo\demo game\src\states\play.h
+1741969937 d:\demo\demo game\src\states\play.h
 	"GameState.h"
 	"Warrior.h"
 	"AppleThrower.h"
 	"Heart.h"
+	"SDL_mixer.h"
 
-1741866213 d:\demo\demo game\src\states\menu.h
+1741969381 d:\demo\demo game\src\states\menu.h
 	"GameState.h"
 	"SDL.h"
+	"SDL_mixer.h"
 	"TextureManager.h"
 	"Input.h"
 
-1741933953 source:d:\demo\demo game\src\states\menu.cpp
+1741969344 source:d:\demo\demo game\src\states\menu.cpp
 	"Menu.h"
 	"Engine.h"
 	"Play.h"
+	"SDL_mixer.h"
 
 1741929731 source:d:\demo\demo game\src\heart\heart.cpp
 	"Heart.h"
@@ -577,7 +582,7 @@
 1741929032 d:\demo\demo game\src\heart\heart.h
 	"SDL.h"
 
-1741929031 source:d:\demo\demo game\src\states\gameover.cpp
+1741945415 source:d:\demo\demo game\src\states\gameover.cpp
 	"GameOver.h"
 	"Engine.h"
 	"Play.h"
@@ -587,4 +592,13 @@
 	"SDL.h"
 	"TextureManager.h"
 	"Input.h"
+
+1738962281 d:\sdl2_mixer-2.8.1\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
 

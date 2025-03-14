@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Engine.h"
 #include "Play.h"
+#include "SDL_mixer.h"
 
 Menu::Menu()
 {
@@ -58,6 +59,12 @@ void Menu::Render() {
 
 void Menu::Enter() {
     TextureManager::GetInstance()->LoadFont("assets/BubblegumSans.ttf", 32); // Load font nếu cần
+    backgroundMusic = Mix_LoadMUS("assets/Happy Bee - Surf.mp3");
+    if (!backgroundMusic) {
+        SDL_Log("Failed to load background music! SDL_mixer Error: %s", Mix_GetError());
+    } else {
+        Mix_PlayMusic(backgroundMusic, -1); // Phát lặp lại vô hạn
+    }
 }
 
 void Menu::Exit()

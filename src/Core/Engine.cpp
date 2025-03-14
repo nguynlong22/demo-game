@@ -25,6 +25,11 @@ bool Engine::Init()
         std::cout << "Lỗi khi khởi tạo SDL_ttf: " << TTF_GetError() << std::endl;
     }
 
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        SDL_Log("SDL Mixer could not initialize! SDL_mixer Error: %s", Mix_GetError());
+        return false;
+    }
+
     m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(m_Renderer == nullptr) {
         SDL_Log("Failed to create renderer: %s", SDL_GetError());
@@ -67,6 +72,7 @@ bool Engine::Clean()
     SDL_DestroyRenderer(m_Renderer);
     SDL_DestroyWindow(m_Window);
     TTF_Quit();
+    Mix_CloseAudio();
     IMG_Quit();
     SDL_Quit();
 }
