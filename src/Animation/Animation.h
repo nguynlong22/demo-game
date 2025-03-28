@@ -3,6 +3,7 @@
 
 #include <string>
 #include "SDL.h"
+#include "TextureManager.h"
 
 class Animation
 {

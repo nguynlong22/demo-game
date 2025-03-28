@@ -1,11 +1,6 @@
 #include "Engine.h"
-#include "TextureManager.h"
-#include "AppleThrower.h"
-#include "Warrior.h"
-#include "Input.h"
-#include "SDL.h"
-#include "Timer.h"
-
+#include<iostream>
+using namespace std;
 Engine* Engine::s_Instance = nullptr;
 
 bool Engine::Init()
@@ -22,7 +17,8 @@ bool Engine::Init()
     }
 
     if (TTF_Init() == -1) {
-        std::cout << "Lỗi khi khởi tạo SDL_ttf: " << TTF_GetError() << std::endl;
+        SDL_Log("Failed to initialize SDL_ttf: %s", TTF_GetError());
+        return false;
     }
 
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
@@ -64,7 +60,6 @@ void Engine::Events()
 bool Engine::Clean()
 {
     while (!m_States.empty()) {
-        m_States.back()->Exit();
         delete m_States.back();
         m_States.pop_back();
     }
@@ -89,18 +84,7 @@ void Engine::PushState(GameState* state) {
 
 void Engine::PopState() {
     if (!m_States.empty()) {
-        m_States.back()->Exit();
         delete m_States.back();
         m_States.pop_back();
     }
-}
-
-void Engine::ChangeState(GameState* state) {
-    if (!m_States.empty()) {
-        m_States.back()->Exit();
-        delete m_States.back();
-        m_States.pop_back();
-    }
-    m_States.push_back(state);
-    state->Enter();
 }

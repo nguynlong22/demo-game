@@ -1,6 +1,4 @@
 #include "Animation.h"
-#include "SDL.h"
-#include "TextureManager.h"
 
 void Animation::Update()
 {

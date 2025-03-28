@@ -11,7 +11,7 @@ Menu::Menu()
 }
 
 void Menu::Update(float dt) {
-    if (Input::GetInstance()->GetMouseButtonDown(1)) { // Nhấn chuột trái
+    if (Input::GetInstance()->GetMouseButtonDown(1)) {
         int mouseX, mouseY;
         SDL_GetMouseState(&mouseX, &mouseY);
 
@@ -67,7 +67,3 @@ void Menu::Enter() {
     }
 }
 
-void Menu::Exit()
-{
-
-}

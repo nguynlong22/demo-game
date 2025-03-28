@@ -14,7 +14,6 @@ public:
     void Update(float dt) override;
     void Render() override;
     void Enter() override;
-    void Exit() override;
 
     inline Warrior* GetPlayer() {return player1;}
     inline Warrior* GetPlayer2() {return player2;}
@@ -35,7 +34,7 @@ private:
     FruitThrower* fruitThrower;
     Warrior* player1;
     Warrior* player2;
-    Heart* hearts1; // Mạng Player 1
+    Heart* hearts1;
     Heart* hearts2;
     int score1 = 0, score2 = 0;
     int activeSide = 0;

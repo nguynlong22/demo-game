@@ -1,10 +1,15 @@
 #ifndef WARRIOR_H
 #define WARRIOR_H
 
+#include "Engine.h"
 #include "Character.h"
 #include "Animation.h"
 #include "RigidBody.h"
 #include "Collider.h"
+#include "TextureManager.h"
+#include "Input.h"
+
+
 
 class Warrior: public Character
 {
@@ -15,14 +20,11 @@ class Warrior: public Character
         virtual void Update(float dt);
         virtual void Clean();
 
-        //SDL_Rect GetSwordHitbox();
         SDL_Rect GetCollider() { return m_Collider->Get(); }
     private:
         RigidBody* m_RigidBody;
         Animation* m_Animation;
-
         Collider *m_Collider;
-        //std::string m_CurrentState;
 };
 
 #endif // WARRIOR_H

@@ -11,7 +11,7 @@ GameOver::GameOver(int score1, int score2, int winner)
 
 void GameOver::Update(float dt)
 {
-    if (Input::GetInstance()->GetMouseButtonDown(1)) { // Nhấn chuột trái
+    if (Input::GetInstance()->GetMouseButtonDown(1)) {
         int mouseX, mouseY;
         SDL_GetMouseState(&mouseX, &mouseY);
 
@@ -33,7 +33,7 @@ void GameOver::Render()
     TextureManager::GetInstance()->Draw("bg", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     std::string winnerText = (m_Winner == 1) ? "Player 1 Wins!" : "Player 2 Wins!";
-    TextureManager::GetInstance()->DrawText(winnerText, 400, 250, 255, 255, 0); // Màu vàng
+    TextureManager::GetInstance()->DrawText(winnerText, 400, 250, 255, 255, 0);
 
     std::string scoreText1 = "P1 Final Score: " + std::to_string(m_Score1);
     TextureManager::GetInstance()->DrawText(scoreText1, 400, 300, 255, 255, 255);
@@ -41,13 +41,11 @@ void GameOver::Render()
     std::string scoreText2 = "P2 Final Score: " + std::to_string(m_Score2);
     TextureManager::GetInstance()->DrawText(scoreText2, 400, 350, 255, 255, 255);
 
-    // Vẽ nút Play
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
     SDL_RenderFillRect(renderer, &retryButton);
     TextureManager::GetInstance()->DrawText("Retry", retryButton.x + 40, retryButton.y + 20, 255, 255, 255);
 
-    // Vẽ nút Exit
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
     SDL_RenderFillRect(renderer, &exitButton);
@@ -61,7 +59,3 @@ void GameOver::Enter()
     TextureManager::GetInstance()->LoadFont("assets/BubblegumSans.ttf", 32);
 }
 
-void GameOver::Exit()
-{
-
-}

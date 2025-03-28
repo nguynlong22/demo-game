@@ -13,7 +13,6 @@ void Heart::LoseHeart() {
 void Heart::Draw1() {
     SDL_Renderer* renderer = Engine::GetInstance()->GetRenderer();
     for (int i = 0; i < m_Hearts; i++) {
-        // Vẽ biểu tượng trái tim (giả định texture "heart")
         TextureManager::GetInstance()->Draw("heart", 10 + i * 40, 50, 64, 64);
     }
 }
@@ -21,7 +20,6 @@ void Heart::Draw1() {
 void Heart::Draw2() {
     SDL_Renderer* renderer = Engine::GetInstance()->GetRenderer();
     for (int i = 0; i < m_Hearts; i++) {
-        // Vẽ biểu tượng trái tim (giả định texture "heart")
         TextureManager::GetInstance()->Draw("heart", SCREEN_WIDTH - 50 - i * 40, 50, 64, 64);
     }
 }

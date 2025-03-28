@@ -7,11 +7,9 @@
 #include <SDL.h>
 
 struct Properties {
-public:
     Properties(std::string textureID, int x, int y, int width, int height, SDL_RendererFlip flip = SDL_FLIP_NONE)
         : X(x), Y(y), Flip(flip), Width(width), Height(height), TextureID(textureID) {}
 
-public:
     std::string TextureID;
     int Width, Height;
     float X, Y;

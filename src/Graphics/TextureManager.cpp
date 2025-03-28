@@ -1,5 +1,4 @@
 #include "TextureManager.h"
-#include "Engine.h"
 
 TextureManager* TextureManager::s_Instance = nullptr;
 

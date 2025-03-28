@@ -13,7 +13,6 @@ public:
     void Update(float dt) override;
     void Render() override;
     void Enter() override;
-    void Exit() override;
 
 private:
     SDL_Rect retryButton;

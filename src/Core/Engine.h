@@ -4,6 +4,9 @@
 #include"SDL.h"
 #include"SDL_image.h"
 #include"SDL_mixer.h"
+#include"TextureManager.h"
+#include "Input.h"
+#include "Timer.h"
 #include"GameState.h"
 #include"Menu.h"
 #include"GameOver.h"
@@ -27,13 +30,12 @@ class Engine
         void Render();
         void Events();
 
-        void PushState(GameState* state); // Thêm trạng thái mới
-        void PopState();                  // Xóa trạng thái hiện tại
-        void ChangeState(GameState* state); // Thay đổi trạng thái
+        void PushState(GameState* state);
+        void PopState();
 
-        inline bool IsRunning(){return m_IsRunning;}
-        inline SDL_Window* GetMainWindow(){return m_Window;}
-        inline SDL_Renderer* GetRenderer(){return m_Renderer;}
+        bool IsRunning(){return m_IsRunning;}
+        SDL_Window* GetMainWindow(){return m_Window;}
+        SDL_Renderer* GetRenderer(){return m_Renderer;}
 
     private:
         Engine(){}

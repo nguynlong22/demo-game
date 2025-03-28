@@ -17,15 +17,6 @@ PlayState::PlayState() {
     activeSide = 0;
 }
 
-PlayState::~PlayState() {
-    delete player1;
-    delete player2;
-    delete fruitThrower;
-    delete hearts1;
-    delete hearts2;
-    if (pickupSound) Mix_FreeChunk(pickupSound);
-}
-
 void PlayState::Update(float dt) {
     if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE)) {
         Engine::GetInstance()->PushState(new Menu()); // Quay lại Menu
@@ -121,5 +112,12 @@ void PlayState::LoseHeartPlayer2() {
     hearts2->LoseHeart();
 }
 
-void PlayState::Exit() {
+
+PlayState::~PlayState() {
+    delete player1;
+    delete player2;
+    delete fruitThrower;
+    delete hearts1;
+    delete hearts2;
+    if (pickupSound) Mix_FreeChunk(pickupSound);
 }
