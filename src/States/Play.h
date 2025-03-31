@@ -38,6 +38,8 @@ private:
     Heart* hearts2;
     int score1 = 0, score2 = 0;
     int activeSide = 0;
+    bool showTutorial;
+    float tutorialTimer;
 };
 
 #endif // PLAY_H

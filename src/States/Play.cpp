@@ -15,11 +15,21 @@ PlayState::PlayState() {
     score1 = 0;
     score2 = 0;
     activeSide = 0;
+    showTutorial = true;      // Bật hướng dẫn khi bắt đầu
+    tutorialTimer = 100.0f;     // 5 giây
 }
 
 void PlayState::Update(float dt) {
+    if (showTutorial) {
+        tutorialTimer -= dt;
+        if (tutorialTimer <= 0.0f) {
+            showTutorial = false; // Tắt hướng dẫn sau 5 giây
+        }
+        return; // Không cập nhật game khi đang hiển thị hướng dẫn
+    }
+
     if (Input::GetInstance()->GetKeyDown(SDL_SCANCODE_ESCAPE)) {
-        Engine::GetInstance()->PushState(new Menu()); // Quay lại Menu
+        Engine::GetInstance()->PushState(new Menu()); // ESC để quay lại Menu
     }
 
     if (hearts1->IsGameOver() && !hearts2->IsGameOver()) {
@@ -70,6 +80,15 @@ void PlayState::Render() {
         TextureManager::GetInstance()->DrawText("Game Over", 650, SCREEN_HEIGHT / 2, 255, 0, 0); // Nửa phải, màu đỏ
     }
 
+    if (showTutorial) {
+    // Hướng dẫn Player 1 (bên trái)
+        TextureManager::GetInstance()->DrawText("A/D de di chuyen",
+            SCREEN_WIDTH / 4 - 80, SCREEN_HEIGHT / 2 - 10, 255, 0, 0);
+
+    // Hướng dẫn Player 2 (bên phải)
+        TextureManager::GetInstance()->DrawText("</> de di chuyen",
+            3 * SCREEN_WIDTH / 4 - 80, SCREEN_HEIGHT / 2 - 10, 255, 0, 0);
+    }
     SDL_RenderPresent(renderer);
 }
 
