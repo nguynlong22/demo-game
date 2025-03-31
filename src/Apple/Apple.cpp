@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include "RigidBody.h"
 
-Fruit::Fruit(Properties* props, Vector2D vel, int pointValue) : GameObject(props), velocity(vel), m_PointValue(pointValue) {}
+Fruit::Fruit(Properties* props, Vector2D vel, int pointValue, bool isBomb) : GameObject(props), velocity(vel), m_PointValue(pointValue), isBomb(isBomb) {}
 
 void Fruit::Update(float dt) {
     if (!isMissed) {

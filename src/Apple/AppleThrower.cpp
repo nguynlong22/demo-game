@@ -35,16 +35,24 @@ void FruitThrower::Update(float dt) {
         fruit->Update(dt);
 
         if (Collision::CheckCollision(fruit->GetRect(), warriorCollider1)) {
-            m_PlayState->AddScorePlayer1(fruit->GetPointValue());
-            if (m_PickupSound) Mix_PlayChannel(-1, m_PickupSound, 0);
+            if (fruit->IsBomb()) {
+                m_PlayState->LoseHeartPlayer1(); // Chạm bom mất máu
+            } else {
+                m_PlayState->AddScorePlayer1(fruit->GetPointValue()); // Chạm hoa quả cộng điểm
+                Mix_PlayChannel(-1, m_PickupSound, 0);
+            }
             delete fruit;
             it = fruits.erase(it);
             continue;
         }
 
         if (Collision::CheckCollision(fruit->GetRect(), warriorCollider2)) {
-            m_PlayState->AddScorePlayer2(fruit->GetPointValue());
-            if (m_PickupSound) Mix_PlayChannel(-1, m_PickupSound, 0);
+            if (fruit->IsBomb()) {
+                m_PlayState->LoseHeartPlayer2(); // Chạm bom mất máu
+            } else {
+                m_PlayState->AddScorePlayer2(fruit->GetPointValue()); // Chạm hoa quả cộng điểm
+                Mix_PlayChannel(-1, m_PickupSound, 0);
+            }
             delete fruit;
             it = fruits.erase(it);
             continue;
@@ -53,10 +61,12 @@ void FruitThrower::Update(float dt) {
         if (fruit->GetRect().y > SCREEN_HEIGHT) {
             fruit->isMissed = true;
 
-            if (fruit->GetRect().x < SCREEN_WIDTH / 2) {
-                m_PlayState->LoseHeartPlayer1();
-            } else {
-                m_PlayState->LoseHeartPlayer2();
+            if (!fruit->IsBomb()) { // Chỉ mất máu nếu không phải bom
+                if (fruit->GetRect().x < SCREEN_WIDTH / 2) {
+                    m_PlayState->LoseHeartPlayer1();
+                } else {
+                    m_PlayState->LoseHeartPlayer2();
+                }
             }
             delete fruit;
             it = fruits.erase(it);
@@ -85,29 +95,37 @@ void FruitThrower::ThrowFruit() {
     int fruitType = std::rand() % 10;
     Properties* fruitProps = nullptr;
     int pointValue = 0;
+    bool isBomb = (rand() % 100 < 10); //20%
 
-    if (fruitType >= 0 && fruitType < 4) {
-        fruitProps = new Properties("apple", startPos.X, startPos.Y, 64, 64);
-        pointValue = 10;
-        velocity.Y = 2.0f;
-    }
-    else if (fruitType >= 4 && fruitType < 6) {
-        fruitProps = new Properties("lemonade", startPos.X, startPos.Y, 64, 64);
-        pointValue = 15;
-        velocity.Y = 3.0f;
-    }
-    else if (fruitType >= 6 && fruitType < 8) {
-        fruitProps = new Properties("orange", startPos.X, startPos.Y, 64, 64);
-        pointValue = 20;
-        velocity.Y = 4.0f;
-    }
-    else {
-        fruitProps = new Properties("banana", startPos.X, startPos.Y, 64, 64);
-        pointValue = 30;
-        velocity.Y = 5.0f;
+    if (isBomb) {
+        fruitProps = new Properties("bomb", startPos.X, startPos.Y, 64, 64);
+        pointValue = 0; // Bom không cho điểm
+        velocity.Y = 6.0f; // Bom rơi nhanh hơn (tùy chỉnh)
+    } else {
+        // Tạo hoa quả thường
+        if (fruitType >= 0 && fruitType < 4) {
+            fruitProps = new Properties("apple", startPos.X, startPos.Y, 64, 64);
+            pointValue = 10;
+            velocity.Y = 2.0f;
+        }
+        else if (fruitType >= 4 && fruitType < 6) {
+            fruitProps = new Properties("lemonade", startPos.X, startPos.Y, 64, 64);
+            pointValue = 15;
+            velocity.Y = 3.0f;
+        }
+        else if (fruitType >= 6 && fruitType < 8) {
+            fruitProps = new Properties("orange", startPos.X, startPos.Y, 64, 64);
+            pointValue = 20;
+            velocity.Y = 4.0f;
+        }
+        else {
+            fruitProps = new Properties("banana", startPos.X, startPos.Y, 64, 64);
+            pointValue = 30;
+            velocity.Y = 5.0f;
+        }
     }
 
-    fruits.push_back(new Fruit(fruitProps, velocity, pointValue));
+    fruits.push_back(new Fruit(fruitProps, velocity, pointValue, isBomb));
 }
 
 void FruitThrower::Draw() {

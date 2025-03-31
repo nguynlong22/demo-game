@@ -85,6 +85,7 @@ void PlayState::Enter() {
     TextureManager::GetInstance()->Load("lemonade", "assets/lemonade.png");
     TextureManager::GetInstance()->Load("orange", "assets/orange.png");
     TextureManager::GetInstance()->Load("banana", "assets/banana.png");
+    TextureManager::GetInstance()->Load("bomb", "assets/bomb.png");
 
     TextureManager::GetInstance()->Load("heart", "assets/heart.png");
     TextureManager::GetInstance()->LoadFont("assets/arial.ttf", 32);
